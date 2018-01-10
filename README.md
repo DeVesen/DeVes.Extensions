@@ -1,1 +1,4 @@
-# DeVes.Extensions
+Required Packages:
+- Autofac
+- Newtonsoft.Json
+- RestSharp
