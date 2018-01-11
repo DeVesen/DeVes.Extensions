@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using DeVes.Extensions.Common;
 
 namespace DeVes.Extensions
@@ -95,6 +97,17 @@ namespace DeVes.Extensions
             var _parents = type.GetParentTypes().ToArray();
 
             return _parents.Any() && compareTo.Any(compType => _parents.Contains(compType));
+        }
+        public static bool IsTypeAnonymous(this Type type)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            // HACK: The only way to detect anonymous types right now.
+            return Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
+                && type.IsGenericType && type.Name.Contains("AnonymousType")
+                && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"))
+                && (type.Attributes & TypeAttributes.NotPublic) == TypeAttributes.NotPublic;
         }
 
         public static IEnumerable<Type> GetParentTypes(this Type type)

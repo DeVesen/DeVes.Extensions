@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DeVes.Extensions;
+using DeVes.Extensions.ParamDict;
+using Newtonsoft.Json.Linq;
 
 namespace ConsoleApp
 {
@@ -10,6 +13,17 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
+            var _pd = new ParamDict();
+
+            _pd["00.01.02"] = 1;
+            _pd["k1"] = 1;
+            _pd["k2"] = 2;
+            _pd["k3"] = 3;
+            _pd["k4"] = 4;
+            _pd["k5"] = 5;
+
+            var _element = _pd["00.01"];
+
             RuntimeCompiler();
         }
 
